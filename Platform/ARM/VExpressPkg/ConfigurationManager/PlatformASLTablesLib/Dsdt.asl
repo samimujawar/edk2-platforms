@@ -1,7 +1,7 @@
 /** @file
   Differentiated System Description Table Fields (DSDT)
 
-  Copyright (c) 2014-2017, ARM Ltd. All rights reserved.<BR>
+  Copyright (c) 2014-2018, ARM Ltd. All rights reserved.<BR>
     This program and the accompanying materials
   are licensed and made available under the terms and conditions of the BSD License
   which accompanies this distribution.  The full text of the license may be found at
@@ -12,7 +12,7 @@
 
 **/
 
-DefinitionBlock("DsdtTable.aml", "DSDT", 1, "ARMLTD", "ARM-VEXPRESS", 1) {
+DefinitionBlock("DsdtTable.aml", "DSDT", 1, "ARMLTD", "ARMVEXP", 1) {
   Scope(_SB) {
     //
     // Processor
@@ -48,6 +48,40 @@ DefinitionBlock("DsdtTable.aml", "DSDT", 1, "ARMLTD", "ARM-VEXPRESS", 1) {
     Device(CPU7) {
       Name(_HID, "ACPI0007")
       Name(_UID, 7)
+    }
+    // SMC91X
+    Device (NET0) {
+      Name (_HID, "LNRO0003")
+      Name (_UID, 0)
+
+      Name (_CRS, ResourceTemplate () {
+        Memory32Fixed (ReadWrite, 0x1a000000, 0x00010000)
+        Interrupt (ResourceConsumer, Level, ActiveHigh, Exclusive, , , ) {0x2F}
+      })
+    }
+
+    // SYSREG
+    Device (SREG) {
+      Name (_HID, "LNRO0009")
+      Name (_UID, 0)
+
+      Method (_CRS, 0x0, Serialized) {
+        Name (RBUF, ResourceTemplate() {
+          Memory32Fixed (ReadWrite, 0x1c010000, 0x1000)
+        })
+        Return (RBUF)
+      }
+    }
+
+    // VIRTIO
+    Device (VIRT) {
+      Name (_HID, "LNRO0005")
+      Name (_UID, 0)
+
+      Name (_CRS, ResourceTemplate() {
+        Memory32Fixed (ReadWrite, 0x1c130000, 0x1000)
+        Interrupt (ResourceConsumer, Level, ActiveHigh, Exclusive) {0x4A}
+      })
     }
 
     // UART PL011
