@@ -74,7 +74,8 @@
 
 [BuildOptions]
   GCC:*_*_AARCH64_PLATFORM_FLAGS == -I$(WORKSPACE)/Platform/ARM/VExpressPkg/Include/Platform/RTSM
-
+  *_*_*_PLATFORM_FLAGS = -I$(BIN_DIR)/Platform/ARM/VExpressPkg/ConfigurationManager/PlatformASLTablesLib/PlatformASLTablesLib/OUTPUT
+  *_*_*_PLATFORM_FLAGS = -I$(BIN_DIR)/Platform/ARM/VExpressPkg/ConfigurationManager/AcpiOemCpuGeneratorLib/AcpiOemCpuASLLib/OUTPUT
 
 ################################################################################
 #

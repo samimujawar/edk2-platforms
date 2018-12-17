@@ -105,7 +105,7 @@
 
 /** The number of ACPI tables to install
 */
-#define PLAT_ACPI_TABLE_COUNT       6
+#define PLAT_ACPI_TABLE_COUNT       7
 
 /** The number of platform generic timer blocks
 */

@@ -1,7 +1,7 @@
 /** @file
   Differentiated System Description Table Fields (DSDT)
 
-  Copyright (c) 2014-2017, ARM Ltd. All rights reserved.<BR>
+  Copyright (c) 2014-2018, ARM Ltd. All rights reserved.<BR>
     This program and the accompanying materials
   are licensed and made available under the terms and conditions of the BSD License
   which accompanies this distribution.  The full text of the license may be found at
@@ -14,41 +14,8 @@
 
 DefinitionBlock("DsdtTable.aml", "DSDT", 1, "ARMLTD", "ARM-VEXP", 1) {
   Scope(_SB) {
-    //
-    // Processor
-    //
-    Device(CPU0) {
-      Name(_HID, "ACPI0007")
-      Name(_UID, Zero)
-    }
-    Device(CPU1) {
-      Name(_HID, "ACPI0007")
-      Name(_UID, One)
-    }
-    Device(CPU2) {
-      Name(_HID, "ACPI0007")
-      Name(_UID, 2)
-    }
-    Device(CPU3) {
-      Name(_HID, "ACPI0007")
-      Name(_UID, 3)
-    }
-    Device(CPU4) {
-      Name(_HID, "ACPI0007")
-      Name(_UID, 4)
-    }
-    Device(CPU5) {
-      Name(_HID, "ACPI0007")
-      Name(_UID, 5)
-    }
-    Device(CPU6) {
-      Name(_HID, "ACPI0007")
-      Name(_UID, 6)
-    }
-    Device(CPU7) {
-      Name(_HID, "ACPI0007")
-      Name(_UID, 7)
-    }
+    // Processor information is provided through dynamically generated
+    // SSDTs for the CPUs
 
     // UART PL011
     Device(COM2) {
