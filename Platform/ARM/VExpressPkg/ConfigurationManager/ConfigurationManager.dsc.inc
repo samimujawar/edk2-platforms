@@ -26,6 +26,9 @@
     <LibraryClasses>
     # Platform ASL Tables
     PlatformAslTablesLib|Platform/ARM/VExpressPkg/ConfigurationManager/PlatformASLTablesLib/PlatformASLTablesLib.inf
+    NULL|Platform/ARM/VExpressPkg/ConfigurationManager/AcpiOemCpuGeneratorLib/AcpiOemCpuASLLib.inf
+    NULL|Platform/ARM/VExpressPkg/ConfigurationManager/AcpiOemCpuGeneratorLib/AcpiOemCpuGeneratorLib.inf
   <BuildOptions>
    *_*_*_PLATFORM_FLAGS = -I$(BIN_DIR)/Platform/ARM/VExpressPkg/ConfigurationManager/PlatformASLTablesLib/PlatformASLTablesLib/OUTPUT
+   *_*_*_PLATFORM_FLAGS = -I$(WORKSPACE)/Platform/ARM/VExpressPkg/ConfigurationManager/AcpiOemCpuGeneratorLib
   }

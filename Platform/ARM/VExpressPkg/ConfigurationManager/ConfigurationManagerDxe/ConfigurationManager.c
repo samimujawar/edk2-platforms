@@ -26,6 +26,7 @@
 
 #include <ArmPlatform.h>
 #include <AcpiTableGenerator.h>
+#include <OemCpuGenerator.h>
 #include <Protocol/ConfigurationManagerProtocol.h>
 
 #include "ConfigurationManager.h"
@@ -77,6 +78,12 @@ EDKII_PLATFORM_REPOSITORY_INFO VExpressPlatRepositoryInfo = {
     {
       EFI_ACPI_6_2_DEBUG_PORT_2_TABLE_SIGNATURE,
       CREATE_STD_ACPI_TABLE_GEN_ID (ESTD_ACPI_TABLE_ID_DBG2),
+      NULL
+    },
+    // OEM CPU Table
+    {
+      0, // Unused
+      CREATE_OEM_ACPI_TABLE_GEN_ID (OEM_ACPI_TABLE_ID_CPU),
       NULL
     }
   },
