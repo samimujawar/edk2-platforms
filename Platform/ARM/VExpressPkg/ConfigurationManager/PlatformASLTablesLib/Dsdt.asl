@@ -43,25 +43,5 @@ DefinitionBlock("DsdtTable.aml", "DSDT", 1, "ARMLTD", "ARM-VEXP", 1) {
       Name(_HID, "ACPI0007")
       Name(_UID, 7)
     }
-
-    // UART PL011
-    Device(COM2) {
-      Name(_HID, "ARMH0011")
-      Name(_CID, "PL011")
-      Name(_UID, Zero)
-
-      Method(_STA) {
-        Return(0xF)
-      }
-
-      Method(_CRS, 0x0, NotSerialized) {
-        Name(RBUF, ResourceTemplate() {
-          Memory32Fixed(ReadWrite, 0x1c090000, 0x1000)
-          Interrupt(ResourceConsumer, Level, ActiveHigh, Exclusive) { 0x25 }
-        })
-        Return (RBUF)
-      }
-    }
-
   } // Scope(_SB)
 }
