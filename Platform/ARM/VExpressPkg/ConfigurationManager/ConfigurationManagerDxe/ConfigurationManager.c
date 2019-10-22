@@ -77,6 +77,13 @@ EDKII_PLATFORM_REPOSITORY_INFO VExpressPlatRepositoryInfo = {
       EFI_ACPI_DBG2_DEBUG_DEVICE_INFORMATION_STRUCT_REVISION,
       CREATE_STD_ACPI_TABLE_GEN_ID (EStdAcpiTableIdDbg2),
       NULL
+    },
+    // SSDT Serial Port Table
+    {
+      EFI_ACPI_6_3_SECONDARY_SYSTEM_DESCRIPTION_TABLE_SIGNATURE,
+      0,  // Not used.
+      CREATE_STD_ACPI_TABLE_GEN_ID (EStdAcpiTableIdSsdtSerial),
+      NULL
     }
   },
 
@@ -198,19 +205,41 @@ EDKII_PLATFORM_REPOSITORY_INFO VExpressPlatRepositoryInfo = {
 
   // SPCR Serial Port
   {
-    FixedPcdGet64 (PcdSerialRegisterBase),                    // BaseAddress
-    FixedPcdGet32 (PL011UartInterrupt),                       // Interrupt
-    FixedPcdGet64 (PcdUartDefaultBaudRate),                   // BaudRate
-    FixedPcdGet32 (PL011UartClkInHz),                         // Clock
-    EFI_ACPI_DBG2_PORT_SUBTYPE_SERIAL_ARM_SBSA_GENERIC_UART   // Port subtype
+    FixedPcdGet64 (PcdSerialRegisterBase),                  // BaseAddress
+    FixedPcdGet32 (PL011UartInterrupt),                     // Interrupt
+    FixedPcdGet64 (PcdUartDefaultBaudRate),                 // BaudRate
+    FixedPcdGet32 (PL011UartClkInHz),                       // Clock
+    EFI_ACPI_DBG2_PORT_SUBTYPE_SERIAL_ARM_SBSA_GENERIC_UART // Port subtype
   },
   // Debug Serial Port
   {
-    FixedPcdGet64 (PcdSerialDbgRegisterBase),                 // BaseAddress
-    38,                                                       // Interrupt
-    FixedPcdGet64 (PcdSerialDbgUartBaudRate),                 // BaudRate
-    FixedPcdGet32 (PcdSerialDbgUartClkInHz),                  // Clock
-    EFI_ACPI_DBG2_PORT_SUBTYPE_SERIAL_ARM_SBSA_GENERIC_UART   // Port subtype
+    FixedPcdGet64 (PcdSerialDbgRegisterBase),               // BaseAddress
+    38,                                                     // Interrupt
+    FixedPcdGet64 (PcdSerialDbgUartBaudRate),               // BaudRate
+    FixedPcdGet32 (PcdSerialDbgUartClkInHz),                // Clock
+    EFI_ACPI_DBG2_PORT_SUBTYPE_SERIAL_ARM_SBSA_GENERIC_UART // Port subtype
+  },
+
+  // Standard Serial Ports
+  {
+    // Serial Port - UART0
+    {
+      0x1C090000,                                           // BaseAddress
+      37,                                                   // Interrupt
+      FixedPcdGet64 (PcdSerialDbgUartBaudRate),             // BaudRate
+      FixedPcdGet32 (PcdSerialDbgUartClkInHz),              // Clock
+      EFI_ACPI_DBG2_PORT_SUBTYPE_SERIAL_ARM_PL011_UART,     // Port subtype
+      0x1000                                                // BaseAddressLength
+    },
+    // Serial Port - UART3
+    {
+      0x1C0C0000,                                           // BaseAddress
+      40,                                                   // Interrupt
+      FixedPcdGet64 (PcdSerialDbgUartBaudRate),             // BaudRate
+      FixedPcdGet32 (PcdSerialDbgUartClkInHz),              // Clock
+      EFI_ACPI_DBG2_PORT_SUBTYPE_SERIAL_ARM_PL011_UART,     // Port subtype
+      0x1000                                                // BaseAddressLength
+    },
   },
 
   // GIC ITS
@@ -456,6 +485,13 @@ GetArmNameSpaceObject (
       CmObjectId,
       PlatformRepo->DbgSerialPort,
       1
+      );
+    HANDLE_CM_OBJECT (
+      EArmObjSerialPortInfo,
+      CmObjectId,
+      PlatformRepo->StdSerialPort,
+      (sizeof (PlatformRepo->StdSerialPort) /
+          sizeof (PlatformRepo->StdSerialPort[0]))
       );
     HANDLE_CM_OBJECT (
       EArmObjGicItsInfo,
